@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+<!-- 				<button class="startGame">Start Game</button> -->
+
+				<!-- This panel disappers AFTER picking Character  -->
+				<div class="row" id="charPicking">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-header">
+								<h2 class="panel-title text-center" id="">Pick Your Character!</h2>
+							</div>
+							<div class="panel-body initialChoice"> <!-- hasClass("initialChoice") -->
+							<!--  Insert 4 Characters Here -->
+							<img src="assets/images/luke.png" class="img_size img-responsive character" id="luke">
+							<img src="assets/images/vader.png" class="img_size img-responsive character" id="vader">
+							<img src="assets/images/chewie.png" class="img_size img-responsive character" id="chewie">
+							<img src="assets/images/r2d2.png" class="img_size img-responsive character" id="r2d2">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Battle Arena -->
+				<div class="row">
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-header">
+								<h2 class="panel-title text-center">Your Savior</h2>
+							</div>
+							<div class="panel-body" id="saviorArena">
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-header">
+								<h2 class="panel-title text-center" id="attackButton">Attack</h2>
+							</div>
+							<div class="panel-body" id="battleInfo">
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-header">
+								<h2 class="panel-title text-center">Your Enemy</h2>
+							</div>
+							<div class="panel-body" id="enemyArena">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Move Enemies Into here -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-header">
+								<h2 class="panel-title text-center">Your Remaining Enemy(s)!</h2>
+							</div>
+							<div class="panel-body remaining">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script   src="http://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+<script type="text/javascript" src="assets/javascript/game.js"></script>
+</body>
+</html>
