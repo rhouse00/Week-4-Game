@@ -11,7 +11,6 @@ body {
 	height: auto;
 	display: inline-block;
 }
-
 #attackButton:hover{
 	background-color:red;
 }
@@ -26,12 +25,6 @@ body {
 }
 .loser {
 	background-color: red;
-}
-.remainingTitle {
-	background-color: #bbbbbb;
-	font-family: ITC Serif Gothic;
-	border: solid #cccccc 2px;
-	border-radius: 5px;
 }
 .deadEnemies {
 	visibility: hidden;

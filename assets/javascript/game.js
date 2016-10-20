@@ -1,46 +1,8 @@
 
 // if luke = vader > chewie > r2d2
 // if vader = luke > chewie > r2d2
-// if r2d2 = chewie > vader > luke
+// if r2d2 = luke > chewie > vader
 // if chewie = r2d2 > vader > luke
-
-var idArray = ["#luke", "#vader", "#r2d2", "#chewie"]
-
-var objArray = [
-	obj1 = {
-		name: "Luke",
-		attack: 6,
-		counter: 12,
-		health: 185,
-		imgFile: "../images/luke.png"
-
-	},
-	obj2 = {
-		name: "Vader",
-		attack: 8,
-		counter: 14,
-		health: 153,
-		imgFile: "../images/vader.png"
-
-	},
-	obj3 = {
-		name: "R2D2",
-		attack: 12,
-		counter:16,
-		health: 125,
-		imgFile: "../images/r2d2.png"
-
-	},
-	obj4 = {
-		name: "Chewie",
-		attack: 19,
-		counter: 18,
-		health: 120,
-		imgFile: "../images/chewie.png"
-
-	}
-
-]
 
 var isSaviorChoosen = false;
 var isEnemyChoosen = false;
@@ -52,13 +14,45 @@ var enemyPower;
 var enemyHealth;
 var enemyName;
 var wins = 0;
+var campaignsWon = 0;
+var campaignsLost = 0;
+
+var characterNameArray = ["#luke", "#vader", "#r2d2", "#chewie"];
+
+var characterStatArray = [
+	{
+		name: "Luke",
+		attack: 6,
+		counter: 12,
+		health: 185,
+	},
+	{
+		name: "Vader",
+		attack: 8,
+		counter: 14,
+		health: 153,
+	},
+	{
+		name: "R2D2",
+		attack: 15,
+		counter:16,
+		health: 125,
+	},
+	{
+		name: "Chewie",
+		attack: 16,
+		counter: 18,
+		health: 120,
+	}
+
+];
 
 function chooseHero(hero) {
 	$(hero).appendTo(".saviorArena");
-	for (var i =0; i<idArray.length; i++) {
-		if($(hero).is(idArray[i])) {
-			$(hero).data(objArray[i]);
-			heroStats(objArray[i]);
+	for (var i =0; i<characterNameArray.length; i++) {
+		if($(hero).is(characterNameArray[i])) {
+			$(hero).data(characterStatArray[i]);
+			heroStats(characterStatArray[i]);
 		}
 	};
 
@@ -66,10 +60,10 @@ function chooseHero(hero) {
 
 function chooseEnemy(enemy) {
 	$(enemy).appendTo(".enemyArena");
-	for (var i =0; i<idArray.length; i++) {
-		if($(enemy).is(idArray[i])) {
-			$(enemy).data(objArray[i]);
-			enemyStats(objArray[i]);
+	for (var i =0; i<characterNameArray.length; i++) {
+		if($(enemy).is(characterNameArray[i])) {
+			$(enemy).data(characterStatArray[i]);
+			enemyStats(characterStatArray[i]);
 		}
 	};
 };
@@ -115,6 +109,11 @@ function healthUpdate() {
 	$("#battleInfo").html("<p>Enemy Attack did " + enemyPower + " damage. </p><p>Savior Attack did " + heroPower + " damage. </p>");
 };
 
+function campaignUpdate() {
+	$(".campaignTally").show();
+	$(".campaignTally").html("<p>Campaigns Won:  " + campaignsWon + "</p><p>Campaigns Lost: " + campaignsLost + "</p>");
+};
+
 function enemyDies(){
 
 	// When player defeats the first 2 enemies
@@ -135,11 +134,13 @@ function enemyDies(){
 	 	$(".saviorArena").empty();
 	 	$("#battleInfo").empty();
 	 	$(".enemyArena").find(".character").appendTo("#battleInfo")
-	 	$(".enemyArena").detach();
+	 	$(".enemyArena").empty();
 	 	$(".remainingTitle").hide();
 	 	$(".loser").show();
 	 	$(".attackButton").hide();
 	 	$(".newGame").show();
+	 	campaignsLost++;
+	 	campaignUpdate();
 	}
 
 	// When player wins game
@@ -153,7 +154,18 @@ function enemyDies(){
 		$(".winner").show();
 		$(".attackButton").hide();
 	 	$(".newGame").show();
+	 	campaignsWon++;
+	 	campaignUpdate();
 	}
+};
+
+function initialButtonState () {
+	$(".newGame").hide();
+	$(".winner").hide();
+	$(".loser").hide();
+	$(".attackButton").hide();
+	$(".campaignTally").hide();
+	$(".remainingTitle").show();
 };
 
 function startNewGame() {
@@ -161,35 +173,19 @@ function startNewGame() {
 	$(".charPicking").css("visibility","visible");
 	$("#battleInfo").find(".character").appendTo(".initialChoice");
 	$(".deadEnemies").find(".character").appendTo(".initialChoice");
-	$(".winner").hide();
-	$(".loser").hide();
+	initialButtonState();
 	isSaviorChoosen = false;
 	isEnemyChoosen = false;
 	wins = 0;
 	enemyHealth;
 	heroHealth;
-	console.log(isEnemyChoosen);
-	console.log(isSaviorChoosen);
-};
-
-function initiate () {
-	$(".newGame").hide();
-	$(".winner").hide();
-	$(".loser").hide();
-	$(".attackButton").hide();
-	$(".remainingTitle").show();
-};
-
-function heroEnemyChoosing () {
-
-
 };
 
 $(document).ready(function(){
-	initiate();
+	initialButtonState();
 
 	$(".character").on("click", function(){
-		initiate();
+		initialButtonState();
 		// $(".deadEnemies").css("visibility","hidden");
 		if(isSaviorChoosen === false) {
 			chooseHero($(this));
