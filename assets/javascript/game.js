@@ -1,6 +1,8 @@
 
 // if luke = vader > chewie > r2d2
 // if vader = luke > chewie > r2d2
+// if r2d2 = chewie > vader > luke
+// if chewie = r2d2 > vader > luke
 
 var idArray = ["#luke", "#vader", "#r2d2", "#chewie"]
 
@@ -23,7 +25,7 @@ var objArray = [
 	},
 	obj3 = {
 		name: "R2D2",
-		attack: 10,
+		attack: 14,
 		counter:16,
 		health: 125,
 		imgFile: "../images/r2d2.png"
@@ -31,7 +33,7 @@ var objArray = [
 	},
 	obj4 = {
 		name: "Chewie",
-		attack: 12,
+		attack: 19,
 		counter: 18,
 		health: 120,
 		imgFile: "../images/chewie.png"
@@ -114,7 +116,7 @@ function healthUpdate() {
 };
 
 function enemyDies(){
-	if(enemyHealth < 1 && heroHealth > 0 && wins <= 2) {
+	if(enemyHealth < 1 && heroHealth > 0 && wins < 2) {
 	 	$(".enemyArena").find(".character").appendTo(".deadEnemies")
 	 	$(".enemyArena").empty();
 	 	$("#battleInfo").empty();
@@ -125,40 +127,36 @@ function enemyDies(){
 		$(".charPicking").css("visibility","visible");
 	}
 	else if((heroHealth < 1 && enemyHealth > 0) || (heroHealth < 1 && enemyHealth < 1 )) {
-	 	$(".saviorArena").remove();
+	 	$(".saviorArena").detach();
 	 	$("#battleInfo").empty();
 	 	$(".enemyArena").find(".character").appendTo("#battleInfo")
-	 	$(".enemyArena").remove();
-	 	$(".remaining").remove();
-	 	$("#attackButton").replaceWith("<h2 class='loser'>You Lose!</h2>");	
+	 	$(".enemyArena").detach();
+	 	$(".remaining").detach();
+	 	$(".attackButton").replaceWith("<h2 class='loser'>You Lose!</h2>");	
+	}
+	else if(enemyHealth < 1 && heroHealth > 0 && wins >= 2) {
+		$(".enemyArena").find(".character").appendTo(".initialChoice");
+		$(".enemyArena").detach();
+		$("#battleInfo").empty();
+		$(".charPicking").hide();
+		$(".saviorArena").find(".character").appendTo("#battleInfo")
+		$(".saviorArena").detach();
+		$(".attackButton").replaceWith("<h2 class='winner'>You Win!</h2>"); 
+	 	$(".remainingTitle").replaceWith("<button class='btn btn-success newGame'>New Game?</button>");
 	}
 };
 
-function endGame() {
-	if(wins > 2) {
-		$(".enemyArena").find(".character").appendTo(".deadEnemies")
-	 	$(".enemyArena").remove();
-	 	$("#battleInfo").empty();
-	 	$(".saviorArena").find(".character").appendTo("#battleInfo")
-	 	$(".saviorArena").remove();
-	 	$(".charPicking").css("visibility","hidden");
-	 	$("#attackButton").replaceWith("<h2 class='winner'>You Win!</h2>"); 
-	 	// $(".remainingTitle").replaceWith("<h2 id='newGameBtn'>New Game?</h2>")	
-	 	// $("#battleInfo").find(".character").appendTo(".deadEnemies");
-		isSaviorChoosen = false;
-		isEnemyChoosen = false;
-	}
+function startNewGame() {
+	$(".charPicking").show();
+	$(".charPicking").css("visibility","visible");
+	wins = 0;
+	console.log(wins);
+	$("#battleInfo").find(".character").appendTo(".initialChoice");
+	$(".deadEnemies").find(".character").appendTo(".initialChoice");
+	
+	isSaviorChoosen = false;
+	isEnemyChoosen = false;
 };
-
-// function startNewGame() {
-// 	console.log(isSaviorChoosen);
-// 	isSaviorChoosen = false;
-// 	isEnemyChoosen = false;
-// 	console.log(isSaviorChoosen);
-// 	$("#battleInfo").find(".character").appendTo(".initialChoice");
-// 	$(".deadEnemies").find(".character").appendTo(".initialChoice");
-// 	$(".charPicking").css("visibility","visible");
-// };
 
 
 $(document).ready(function(){
@@ -184,18 +182,19 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#attackButton").on("click", function(){
+	$(".attackButton").on("click", function(){
 		healthUpdate();
 		enemyDies();
-		endGame();
 	});
 
-	$("#newGameBtn").on("click", function(){
-		$(".charPicking").css("visibility","visible");
-		$(".deadEnemies").css("visibility","visible");
-		
-		$(".deadEnemies").find(".character").append(".initialChoice");
-		$("#battleInfo").find(".character").append(".initialChoice");
+	$("#newGame").on("click", "update", function(){
+		// $(".charPicking").css("visibility","visible");
+		// $(".deadEnemies").css("visibility","visible");
+		// startNewGame();
+		// $(".deadEnemies").find(".character").detach().append(".initialChoice");
+		// $("#battleInfo").find(".character").detach().append(".initialChoice");
+		wins = 0;
+		console.log(wins);
 	});
 })
 

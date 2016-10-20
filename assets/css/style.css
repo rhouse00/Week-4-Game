@@ -11,7 +11,7 @@ body {
 	height: auto;
 	display: inline-block;
 }
-#attackButton, #newGameBtn {
+ #newGameBtn {
 	background-color: #bbbbbb;
 	font-family: ITC Serif Gothic;
 	border: solid #cccccc 2px;
