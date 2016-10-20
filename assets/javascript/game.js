@@ -187,7 +187,7 @@ $(document).ready(function(){
 		enemyDies();
 	});
 
-	$("#newGame").on("click", "update", function(){
+	$(".newGame").on("click", function(){
 		// $(".charPicking").css("visibility","visible");
 		// $(".deadEnemies").css("visibility","visible");
 		// startNewGame();
