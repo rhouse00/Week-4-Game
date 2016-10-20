@@ -11,12 +11,7 @@ body {
 	height: auto;
 	display: inline-block;
 }
- #newGameBtn {
-	background-color: #bbbbbb;
-	font-family: ITC Serif Gothic;
-	border: solid #cccccc 2px;
-	border-radius: 5px;
-}
+
 #attackButton:hover{
 	background-color:red;
 }
@@ -26,9 +21,6 @@ body {
 .inline {
 	display: inline;
 } 
-.names {
-	display: block;
-}
 .winner {
 	background-color: yellow;
 }
@@ -40,4 +32,7 @@ body {
 	font-family: ITC Serif Gothic;
 	border: solid #cccccc 2px;
 	border-radius: 5px;
+}
+.deadEnemies {
+	visibility: hidden;
 }

@@ -25,7 +25,7 @@ var objArray = [
 	},
 	obj3 = {
 		name: "R2D2",
-		attack: 14,
+		attack: 12,
 		counter:16,
 		health: 125,
 		imgFile: "../images/r2d2.png"
@@ -52,6 +52,27 @@ var enemyPower;
 var enemyHealth;
 var enemyName;
 var wins = 0;
+
+function chooseHero(hero) {
+	$(hero).appendTo(".saviorArena");
+	for (var i =0; i<idArray.length; i++) {
+		if($(hero).is(idArray[i])) {
+			$(hero).data(objArray[i]);
+			heroStats(objArray[i]);
+		}
+	};
+
+};
+
+function chooseEnemy(enemy) {
+	$(enemy).appendTo(".enemyArena");
+	for (var i =0; i<idArray.length; i++) {
+		if($(enemy).is(idArray[i])) {
+			$(enemy).data(objArray[i]);
+			enemyStats(objArray[i]);
+		}
+	};
+};
 
 // Adds Hero's Stats to counters
 function heroStats(hero){
@@ -84,27 +105,6 @@ function enemyNameHealth(enemy){
 	$(".enemyArena").append(addHealth);
 };
 
-function chooseHero(hero) {
-	$(hero).appendTo(".saviorArena");
-	for (var i =0; i<idArray.length; i++) {
-		if($(hero).is(idArray[i])) {
-			$(hero).data(objArray[i]);
-			heroStats(objArray[i]);
-		}
-	};
-
-};
-
-function chooseEnemy(enemy) {
-	$(enemy).appendTo(".enemyArena");
-	for (var i =0; i<idArray.length; i++) {
-		if($(enemy).is(idArray[i])) {
-			$(enemy).data(objArray[i]);
-			enemyStats(objArray[i]);
-		}
-	};
-};
-
 // Updates health in battle area
 function healthUpdate() {
 	heroHealth = heroHealth - enemyPower;
@@ -116,6 +116,7 @@ function healthUpdate() {
 };
 
 function enemyDies(){
+	// When player defeats the first 2 enemies
 	if(enemyHealth < 1 && heroHealth > 0 && wins < 2) {
 	 	$(".enemyArena").find(".character").appendTo(".deadEnemies")
 	 	$(".enemyArena").empty();
@@ -126,42 +127,69 @@ function enemyDies(){
 	 	$(".remaining").find(".character").appendTo(".initialChoice")
 		$(".charPicking").css("visibility","visible");
 	}
+
+	// When player loses game
 	else if((heroHealth < 1 && enemyHealth > 0) || (heroHealth < 1 && enemyHealth < 1 )) {
-	 	$(".saviorArena").detach();
+	 	$(".saviorArena").find(".character").appendTo(".deadEnemies");
+	 	$(".saviorArena").empty();
 	 	$("#battleInfo").empty();
 	 	$(".enemyArena").find(".character").appendTo("#battleInfo")
 	 	$(".enemyArena").detach();
 	 	$(".remaining").detach();
-	 	$(".attackButton").replaceWith("<h2 class='loser'>You Lose!</h2>");	
+	 	$(".loser").show();
+	 	$(".attackButton").hide();
+	 	$(".newGame").show();
 	}
+
+	// When player wins game
 	else if(enemyHealth < 1 && heroHealth > 0 && wins >= 2) {
-		$(".enemyArena").find(".character").appendTo(".initialChoice");
+		$(".enemyArena").find(".character").appendTo(".deadEnemies");
 		$(".enemyArena").detach();
 		$("#battleInfo").empty();
-		$(".charPicking").hide();
-		$(".saviorArena").find(".character").appendTo("#battleInfo")
-		$(".saviorArena").detach();
-		$(".attackButton").replaceWith("<h2 class='winner'>You Win!</h2>"); 
-	 	$(".remainingTitle").replaceWith("<button class='btn btn-success newGame'>New Game?</button>");
+		$(".charPicking").css("visibility", "visible");
+		$(".saviorArena").find(".character").appendTo("#battleInfo");
+		$(".saviorArena").detach(); 
+		$(".winner").show();
+		$(".attackButton").hide();
+		$(".remainingTitle").hide();
+	 	$(".newGame").show();
 	}
 };
 
 function startNewGame() {
 	$(".charPicking").show();
 	$(".charPicking").css("visibility","visible");
-	wins = 0;
-	console.log(wins);
 	$("#battleInfo").find(".character").appendTo(".initialChoice");
 	$(".deadEnemies").find(".character").appendTo(".initialChoice");
-	
+	$(".winner").hide();
 	isSaviorChoosen = false;
 	isEnemyChoosen = false;
+	wins = 0;
+	enemyHealth;
+	heroHealth;
+	console.log(isEnemyChoosen);
+	console.log(isSaviorChoosen);
 };
 
+function initiate () {
+	$(".newGame").hide();
+	$(".winner").hide();
+	$(".loser").hide();
+	$(".attackButton").hide();
+	$(".remainingTitle").show();
+};
+
+function heroEnemyChoosing () {
+
+
+};
 
 $(document).ready(function(){
+	initiate();
+
 	$(".character").on("click", function(){
-		$(".deadEnemies").css("visibility","hidden");
+		initiate();
+		// $(".deadEnemies").css("visibility","hidden");
 		if(isSaviorChoosen === false) {
 			chooseHero($(this));
 			heroNameHealth($(this));
@@ -179,6 +207,7 @@ $(document).ready(function(){
 			// Puts remaining Enemy's in top box to choose from
 			$(".initialChoice").find(".character").appendTo(".remaining")
 			$(".charPicking").css("visibility","hidden");
+			$(".attackButton").show();
 		}
 	});
 
@@ -188,13 +217,7 @@ $(document).ready(function(){
 	});
 
 	$(".newGame").on("click", function(){
-		// $(".charPicking").css("visibility","visible");
-		// $(".deadEnemies").css("visibility","visible");
-		// startNewGame();
-		// $(".deadEnemies").find(".character").detach().append(".initialChoice");
-		// $("#battleInfo").find(".character").detach().append(".initialChoice");
-		wins = 0;
-		console.log(wins);
+		startNewGame();
 	});
 })
 
