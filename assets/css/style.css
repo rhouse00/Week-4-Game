@@ -11,16 +11,33 @@ body {
 	height: auto;
 	display: inline-block;
 }
-#attackButton {
+#attackButton, #newGameBtn {
+	background-color: #bbbbbb;
 	font-family: ITC Serif Gothic;
-
+	border: solid #cccccc 2px;
+	border-radius: 5px;
 }
 #attackButton:hover{
-	color:red;
+	background-color:red;
+}
+#newGameBtn:hover{
+	background-color:red;
 }
 .inline {
-	display: inline-block;
+	display: inline;
 } 
 .names {
 	display: block;
+}
+.winner {
+	background-color: yellow;
+}
+.loser {
+	background-color: red;
+}
+.remainingTitle {
+	background-color: #bbbbbb;
+	font-family: ITC Serif Gothic;
+	border: solid #cccccc 2px;
+	border-radius: 5px;
 }

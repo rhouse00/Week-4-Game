@@ -11,36 +11,38 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6">
-<!-- 				<button class="startGame">Start Game</button> -->
+				<!-- <button class="startGame">Start Game</button> randomize characters choosen??? -->
 
-				<!-- This panel disappers AFTER picking Character  -->
-				<div class="row" id="charPicking">
+				<!-- This panel disappers AFTER picking Character AND reappears AFTER defeating current enemy-->
+				<div class="row charPicking">
 					<div class="col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-header">
-								<h2 class="panel-title text-center" id="">Pick Your Character!</h2>
+								<h2 class="panel-title text-center">Pick Your Character!</h2>
 							</div>
-							<div class="panel-body initialChoice"> <!-- hasClass("initialChoice") -->
+							<div class="panel-body initialChoice">
 							<!--  Insert 4 Characters Here -->
-							<img src="assets/images/luke.png" class="img_size img-responsive character" id="luke">
-							<img src="assets/images/vader.png" class="img_size img-responsive character" id="vader">
-							<img src="assets/images/chewie.png" class="img_size img-responsive character" id="chewie">
-							<img src="assets/images/r2d2.png" class="img_size img-responsive character" id="r2d2">
+							<div class="inline"><img src="assets/images/luke.png" class="img_size img-responsive character" id="luke"></div>
+							<div class="inline"><img src="assets/images/vader.png" class="img_size img-responsive character" id="vader"></div>
+							<div class="inline"><img src="assets/images/chewie.png" class="img_size img-responsive character" id="chewie"></div>
+							<div class="inline"><img src="assets/images/r2d2.png" class="img_size img-responsive character" id="r2d2"></div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- Battle Arena -->
 				<div class="row">
+					<!-- Savior's Pic / Name / Health -->
 					<div class="col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-header">
 								<h2 class="panel-title text-center">Your Savior</h2>
 							</div>
-							<div class="panel-body" id="saviorArena">
+							<div class="panel-body saviorArena">
 							</div>
 						</div>
 					</div>
+					<!-- Attack button and Battle Information -->
 					<div class="col-lg-4 col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-header">
@@ -50,13 +52,13 @@
 							</div>
 						</div>
 					</div>
-					
+					<!-- Enemy's Pic / Name / Health -->
 					<div class="col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-header">
 								<h2 class="panel-title text-center">Your Enemy</h2>
 							</div>
-							<div class="panel-body" id="enemyArena">
+							<div class="panel-body enemyArena">
 							</div>
 						</div>
 					</div>
@@ -67,11 +69,17 @@
 					<div class="col-md-12">
 						<div class="panel panel-default">
 							<div class="panel-header">
-								<h2 class="panel-title text-center">Your Remaining Enemy(s)!</h2>
+								<h2 class="panel-title text-center remainingTitle" id="newGameBtn">Your Remaining Enemy(s)!</h2>
 							</div>
 							<div class="panel-body remaining">
 							</div>
 						</div>
+					</div>
+				</div>
+				<!-- Move Dead Enemies Here -->
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+							<div class="panel-body deadEnemies"></div>
 					</div>
 				</div>
 			</div>
