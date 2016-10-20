@@ -116,6 +116,7 @@ function healthUpdate() {
 };
 
 function enemyDies(){
+
 	// When player defeats the first 2 enemies
 	if(enemyHealth < 1 && heroHealth > 0 && wins < 2) {
 	 	$(".enemyArena").find(".character").appendTo(".deadEnemies")
@@ -135,7 +136,7 @@ function enemyDies(){
 	 	$("#battleInfo").empty();
 	 	$(".enemyArena").find(".character").appendTo("#battleInfo")
 	 	$(".enemyArena").detach();
-	 	$(".remaining").detach();
+	 	$(".remainingTitle").hide();
 	 	$(".loser").show();
 	 	$(".attackButton").hide();
 	 	$(".newGame").show();
@@ -144,14 +145,13 @@ function enemyDies(){
 	// When player wins game
 	else if(enemyHealth < 1 && heroHealth > 0 && wins >= 2) {
 		$(".enemyArena").find(".character").appendTo(".deadEnemies");
-		$(".enemyArena").detach();
+		$(".enemyArena").empty();
 		$("#battleInfo").empty();
-		$(".charPicking").css("visibility", "visible");
 		$(".saviorArena").find(".character").appendTo("#battleInfo");
-		$(".saviorArena").detach(); 
+		$(".saviorArena").empty();
+		$(".remainingTitle").hide();
 		$(".winner").show();
 		$(".attackButton").hide();
-		$(".remainingTitle").hide();
 	 	$(".newGame").show();
 	}
 };
@@ -162,6 +162,7 @@ function startNewGame() {
 	$("#battleInfo").find(".character").appendTo(".initialChoice");
 	$(".deadEnemies").find(".character").appendTo(".initialChoice");
 	$(".winner").hide();
+	$(".loser").hide();
 	isSaviorChoosen = false;
 	isEnemyChoosen = false;
 	wins = 0;
